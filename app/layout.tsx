@@ -8,13 +8,13 @@ const roboto = Roboto({
   subsets: ["latin"],
 });
 
-export const robotoSlab = Roboto_Slab({
+const robotoSlab = Roboto_Slab({
   weight: ["300", "700"],
   variable: "--ff-roboto-slab",
   subsets: ["latin"],
 });
 
-export const robotoMono = Roboto_Mono({
+const robotoMono = Roboto_Mono({
   weight: ["400"],
   variable: "--ff-roboto-mono",
   subsets: ["latin"],
