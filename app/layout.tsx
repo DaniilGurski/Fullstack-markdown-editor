@@ -1,24 +1,6 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Slab, Roboto_Mono } from "next/font/google";
+import { roboto } from "./fonts";
 import "./style.css";
-
-const roboto = Roboto({
-  weight: ["300", "400", "500"],
-  variable: "--ff-roboto",
-  subsets: ["latin"],
-});
-
-const robotoSlab = Roboto_Slab({
-  weight: ["300", "700"],
-  variable: "--ff-roboto-slab",
-  subsets: ["latin"],
-});
-
-const robotoMono = Roboto_Mono({
-  weight: ["400"],
-  variable: "--ff-roboto-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
