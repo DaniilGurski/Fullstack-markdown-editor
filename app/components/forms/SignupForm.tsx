@@ -3,25 +3,26 @@
 import { useForm } from "react-hook-form";
 import { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema } from "@/app/lib/schemas/login";
-import { LoginFormFields } from "@/app/lib/definitions/formFields";
+import { SignupSchema } from "@/app/lib/schemas/signup";
+import { SignupFormFields } from "@/app/lib/definitions/formFields";
 import Link from "next/link";
 import { Fieldset, Legend } from "@headlessui/react";
 import Button from "@/app/components/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
 
-export default function LoginForm() {
-  const { register, handleSubmit, formState } = useForm<LoginFormFields>({
-    resolver: zodResolver(LoginSchema),
+export default function SignupForm() {
+  const { register, handleSubmit, formState } = useForm<SignupFormFields>({
+    resolver: zodResolver(SignupSchema),
   });
 
   const { errors } = formState;
 
-  const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
+  const onSubmit: SubmitHandler<SignupFormFields> = async (data) => {
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
   };
 
   return (
@@ -32,14 +33,12 @@ export default function LoginForm() {
       <h1
         className={`${robotoSlab.className} tablet:text-[2rem] text-2xl font-bold`}
       >
-        Login
+        Signup
       </h1>
 
       <div className="grid gap-6">
         <Fieldset className="grid gap-y-10">
-          <Legend className="text-neutral-500">
-            Add your details below to get back into the app
-          </Legend>
+          <Legend className="text-neutral-500">Let's get you started !</Legend>
 
           <div className="grid gap-6">
             <FormInput
@@ -54,19 +53,27 @@ export default function LoginForm() {
               fieldLabel="Password"
               error={errors.password}
               type="password"
-              placeholder="Enter your password"
-              {...register("password")}
+              placeholder="At least .8 characters"
+              {...register("confirmPassword")}
+            />
+
+            <FormInput
+              fieldLabel="Confirm password"
+              error={errors.confirmPassword}
+              type="password"
+              placeholder="At least .8 characters"
+              {...register("confirmPassword")}
             />
           </div>
         </Fieldset>
 
         <div className="grid gap-6 text-center">
-          <Button> Login </Button>
+          <Button> Signup </Button>
 
           <p className="tablet:flex-row flex flex-col justify-center gap-2 text-neutral-500">
-            Don't have an account ?
-            <Link className="text-orange-200" href="/signup">
-              Signup now
+            Already have an account?
+            <Link className="text-orange-200" href="/login">
+              Login
             </Link>
           </p>
         </div>
