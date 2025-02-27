@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-*: initial;
+  --breakpoint-*: initial;
+  --breakpoint-desktop: 79.625em;
+  --breakpoint-tablet: 48em;
+  --breakpoint-mobile: 36.563em;
+
+  /* --color-*: initial; */
   --color-neutral-1000: hsl(225, 9%, 9%);
   --color-neutral-900: hsl(216, 8%, 12%);
   --color-neutral-800: hsl(220, 7%, 18%);
@@ -15,11 +20,6 @@
 
   --color-orange-200: hsl(13, 75%, 58%);
   --color-orange-100: hsl(21, 86%, 67%);
-}
 
-@theme inline {
-  --font-*: initial;
-  --font-roboto: var(--ff-roboto);
-  --font-roboto-slab: var(--ff-roboto);
-  --font-roboto-mono: var(--ff-roboto-mono);
+  --width-almost: 90%;
 }
