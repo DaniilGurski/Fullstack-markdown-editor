@@ -10,6 +10,8 @@ import { Fieldset, Legend } from "@headlessui/react";
 import Button from "@/app/components/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
+import { loginAction } from "@/app/(auth)/login/action";
+import { redirect } from "next/navigation";
 
 export default function LoginForm() {
   const { register, handleSubmit, formState } = useForm<LoginFormFields>({
@@ -22,6 +24,13 @@ export default function LoginForm() {
     const formData = new FormData();
     formData.append("email", data.email);
     formData.append("password", data.password);
+
+    const user = await loginAction(formData);
+
+    // redirect to editor of login successfull
+    if (user) {
+      redirect("/editor");
+    }
   };
 
   return (

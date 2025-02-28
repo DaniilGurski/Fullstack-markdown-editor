@@ -10,10 +10,17 @@ import { Fieldset, Legend } from "@headlessui/react";
 import Button from "@/app/components/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
+import { signUpAction } from "@/app/(auth)/signup/action";
+import { useState } from "react";
+import { isUser, isUserError } from "@/app/lib/typeguards";
 
 export default function SignupForm() {
   const { register, handleSubmit, formState } = useForm<SignupFormFields>({
     resolver: zodResolver(SignupSchema),
+  });
+  const [submitDetails, setSubmitDetails] = useState({
+    success: "",
+    error: "",
   });
 
   const { errors } = formState;
@@ -23,6 +30,14 @@ export default function SignupForm() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
+
+    const res = await signUpAction(formData);
+
+    if (isUser(res)) {
+      setSubmitDetails({ success: "Confirm your email adress", error: "" });
+    } else if (isUserError(res)) {
+      setSubmitDetails({ success: "", error: res.message });
+    }
   };
 
   return (
@@ -54,7 +69,7 @@ export default function SignupForm() {
               error={errors.password}
               type="password"
               placeholder="At least .8 characters"
-              {...register("confirmPassword")}
+              {...register("password")}
             />
 
             <FormInput
@@ -66,6 +81,15 @@ export default function SignupForm() {
             />
           </div>
         </Fieldset>
+
+        <div aria-live="polite" className="contents">
+          {submitDetails.success && (
+            <p className="text-neutral-600"> {submitDetails.success} </p>
+          )}
+          {submitDetails.error && (
+            <p className="text-red-500"> {submitDetails.error} </p>
+          )}
+        </div>
 
         <div className="grid gap-6 text-center">
           <Button> Signup </Button>
