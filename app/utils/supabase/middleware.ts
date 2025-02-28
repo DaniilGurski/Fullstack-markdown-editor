@@ -33,6 +33,7 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // TODO: Make code cleaner
   if (
     !user &&
     !request.nextUrl.pathname.startsWith("/login") &&
@@ -42,7 +43,15 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
+  } else if (
+    user &&
+    (request.nextUrl.pathname.startsWith("/login") ||
+      request.nextUrl.pathname.startsWith("/signup"))
+  ) {
+    // protect auth routes if user already exists
+    const url = request.nextUrl.clone();
+    url.pathname = "/editor";
+    return NextResponse.redirect(url);
   }
-
   return supabaseResponse;
 }
