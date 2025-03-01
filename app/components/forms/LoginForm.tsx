@@ -7,7 +7,7 @@ import { LoginSchema } from "@/app/lib/schemas/login";
 import { LoginFormFields } from "@/app/lib/definitions/formFields";
 import Link from "next/link";
 import { Fieldset, Legend } from "@headlessui/react";
-import Button from "@/app/components/Button";
+import Button from "@/app/components/buttons/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
 import { loginAction } from "@/app/(auth)/login/action";

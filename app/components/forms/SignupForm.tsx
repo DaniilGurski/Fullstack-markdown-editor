@@ -7,7 +7,7 @@ import { SignupSchema } from "@/app/lib/schemas/signup";
 import { SignupFormFields } from "@/app/lib/definitions/formFields";
 import Link from "next/link";
 import { Fieldset, Legend } from "@headlessui/react";
-import Button from "@/app/components/Button";
+import Button from "@/app/components/buttons/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
 import { signUpAction } from "@/app/(auth)/signup/action";
