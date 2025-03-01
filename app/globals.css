@@ -23,3 +23,14 @@
 
   --width-almost: 90%;
 }
+
+@theme inline {
+  --color-editor-window-header: var(--color-neutral-900);
+  --color-editor-window: var(--color-neutral-100);
+  --color-markdown-code: var(--color-neutral-700);
+  --color-markdown-preview: var(--color-neutral-500);
+  --color-markdown-preview-header: var(--color-neutral-700);
+  --color-markdown-preview-block: var(--color-neutral-200);
+}
+
+/* things which change color depending on theme: */
