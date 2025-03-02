@@ -22,15 +22,20 @@
   --color-orange-100: hsl(21, 86%, 67%);
 
   --width-almost: 90%;
+
+  --editor-header-cols: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 @theme inline {
-  --color-editor-window-header: var(--color-neutral-900);
-  --color-editor-window: var(--color-neutral-100);
+  --color-editor-header: var(--color-neutral-200);
+  --color-editor-header-text: var(--color-neutral-500);
+  --color-editor-divider: var(--color-neutral-300);
+
+  /* text color inside editor windows */
   --color-markdown-code: var(--color-neutral-700);
   --color-markdown-preview: var(--color-neutral-500);
+
+  /* markdown components */
   --color-markdown-preview-header: var(--color-neutral-700);
   --color-markdown-preview-block: var(--color-neutral-200);
 }
-
-/* things which change color depending on theme: */
