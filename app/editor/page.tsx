@@ -3,7 +3,7 @@ import MarkdownEditor from "@/app/components/MarkdownEditor";
 
 export default function Page() {
   return (
-    <main>
+    <main className="grid grid-cols-(--editor-main-cols)">
       <DocumentPanel />
       <MarkdownEditor />
     </main>

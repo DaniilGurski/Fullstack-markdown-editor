@@ -1,15 +1,24 @@
 import Image from "next/image";
-import iconMenu from "@/public/assets/icon-menu.svg";
 import IconButton from "./buttons/IconButton";
+import iconMenu from "@/public/assets/icon-menu.svg";
+import iconClose from "@/public/assets/icon-close.svg";
+import { useAtom } from "jotai";
+import { documentPanelOpenedAtom } from "@/app/lib/atoms";
 
 export default function PanelButton() {
+  const [documentPanelOpened, setDocumentPanelOpened] = useAtom(
+    documentPanelOpenedAtom,
+  );
+
   return (
     <IconButton
-      className="mobile:size-24 grid size-16 place-content-center bg-neutral-700 hover:bg-orange-200 focus:bg-orange-200"
+      className="mobile:size-20 grid size-16 place-content-center bg-neutral-700 hover:bg-orange-200 focus:bg-orange-200"
       srOnlyLabel="Toggle document panel"
-      aria-expanded="false"
+      aria-expanded={documentPanelOpened}
+      aria-controls="document-panel"
+      onClick={() => setDocumentPanelOpened((prev) => !prev)}
     >
-      <Image src={iconMenu} alt="" />
+      <Image src={documentPanelOpened ? iconClose : iconMenu} alt="" />
     </IconButton>
   );
 }

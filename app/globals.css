@@ -3,8 +3,8 @@
 @theme {
   --breakpoint-*: initial;
   --breakpoint-desktop: 79.625em;
-  --breakpoint-tablet: 48em;
-  --breakpoint-mobile: 36.563em;
+  --breakpoint-tablet: 63.25em;
+  --breakpoint-mobile: 49.625em;
 
   /* --color-*: initial; */
   --color-neutral-1000: hsl(225, 9%, 9%);
@@ -24,6 +24,7 @@
   --width-almost: 90%;
 
   --editor-header-cols: repeat(auto-fit, minmax(280px, 1fr));
+  --editor-main-cols: max-content 1fr;
 }
 
 @theme inline {
@@ -38,4 +39,21 @@
   /* markdown components */
   --color-markdown-preview-header: var(--color-neutral-700);
   --color-markdown-preview-block: var(--color-neutral-200);
+}
+
+@layer components {
+  /* ight the theme icon depending on the state of the switch */
+  .theme-switch-container {
+    &:has([data-checked]) {
+      img:last-child {
+        filter: brightness(100);
+      }
+    }
+
+    &:not(:has([data-checked])) {
+      img:first-child {
+        filter: brightness(100);
+      }
+    }
+  }
 }

@@ -1,7 +1,10 @@
 "use client";
 
 import { useAtom, useAtomValue } from "jotai";
-import { markdownPreviewOpenedAtom } from "@/app/lib/atoms";
+import {
+  documentPanelOpenedAtom,
+  markdownPreviewOpenedAtom,
+} from "@/app/lib/atoms";
 import clsx from "clsx";
 import Image from "next/image";
 import { Textarea } from "@headlessui/react";
@@ -17,8 +20,9 @@ import iconHidePreview from "@/public/assets/icon-hide-preview.svg";
 import { robotoMono } from "@/app/fonts";
 
 export default function MarkdownEditor() {
+  const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
   return (
-    <article>
+    <article className={clsx(!documentPanelOpened && "col-span-2")}>
       <PrimaryHeader />
       <div>
         <EditorHeader />
@@ -49,7 +53,7 @@ function PrimaryHeader() {
           aria-hidden="true"
         ></div>
 
-        <DocumentRenamer />
+        <DocumentRenamer topText="Document Name" />
       </div>
 
       <div className="tablet:pr-4 flex gap-6 pr-2">
@@ -132,7 +136,7 @@ function MarkdownTextArea() {
 function MarkdownPreview() {
   return (
     <div className="mobile:py-2 :bg-red-200 w-full bg-white p-4 peer-[[data-hidden=true]]:col-span-2 peer-[[data-hidden=true]]:mx-auto peer-[[data-hidden=true]]:max-w-2xl">
-      <p> Preview window </p>
+      <p> </p>
     </div>
   );
 }
