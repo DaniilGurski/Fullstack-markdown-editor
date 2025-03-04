@@ -22,11 +22,13 @@ import { robotoMono } from "@/app/fonts";
 export default function MarkdownEditor() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
   return (
-    <article className={clsx(!documentPanelOpened && "col-span-2")}>
+    <article
+      className={clsx("min-w-[400px]", !documentPanelOpened && "col-span-2")}
+    >
       <PrimaryHeader />
-      <div>
+      <div className="@container">
         <EditorHeader />
-        <div className="divide-editor-divider mobile:grid-cols-2 grid h-dvh grid-cols-1 divide-x-2">
+        <div className="divide-editor-divider @container grid h-dvh grid-cols-1 divide-x-2 @sm:grid-cols-2">
           <MarkdownTextArea />
           <MarkdownPreview />
         </div>
@@ -37,33 +39,33 @@ export default function MarkdownEditor() {
 
 function PrimaryHeader() {
   return (
-    <header className="flex items-center justify-between bg-neutral-800">
+    <header className="@container flex items-center justify-between bg-neutral-800">
       <div className="flex gap-6">
         <PanelButton />
 
         <Image
-          className="tablet:inline-block hidden self-center"
+          className="hidden self-center @md:inline-block"
           src={logo}
           alt="logo"
         />
 
         {/* divider */}
         <div
-          className="tablet:block my-3 hidden bg-neutral-600 px-[1px]"
+          className="my-3 hidden bg-neutral-600 px-[1px] @md:block"
           aria-hidden="true"
         ></div>
 
         <DocumentRenamer topText="Document Name" />
       </div>
 
-      <div className="tablet:pr-4 flex gap-6 pr-2">
+      <div className="flex gap-6 pr-2 @md:pr-4">
         <IconButton srOnlyLabel="Delete document">
           <Image src={iconDelete} alt="" />
         </IconButton>
 
         <Button className="flex items-center gap-2 p-3">
           <Image src={iconSave} alt="" aria-hidden="true" />
-          <span className="mobile:not-sr-only sr-only"> Save Changes </span>
+          <span className="sr-only @sm:not-sr-only"> Save Changes </span>
         </Button>
       </div>
     </header>
@@ -72,8 +74,9 @@ function PrimaryHeader() {
 
 function EditorHeader() {
   const markdownPreviewOpened = useAtomValue(markdownPreviewOpenedAtom);
+
   return (
-    <header className="bg-editor-header text-editor-header-text grid grid-cols-(--editor-header-cols) divide-x-2 divide-neutral-300 font-medium">
+    <header className="bg-editor-header text-editor-header-text grid grid-cols-1 divide-x-2 divide-neutral-300 font-medium @sm:grid-cols-2">
       <div
         className={clsx(
           "justify-between p-4",
@@ -81,13 +84,13 @@ function EditorHeader() {
         )}
       >
         <span> Markdown </span>
-        <ToggleMarkdownPreviewButton className="mobile:hidden inline-block" />
+        <ToggleMarkdownPreviewButton className="inline-block @sm:hidden" />
       </div>
 
       <div
         className={clsx(
           "justify-between p-4",
-          markdownPreviewOpened ? "flex" : "mobile:flex hidden",
+          markdownPreviewOpened ? "col-span-2 flex" : "hidden @sm:flex",
         )}
       >
         <span> Preview </span>
@@ -126,7 +129,7 @@ function MarkdownTextArea() {
   return (
     <Textarea
       className={clsx(
-        `${robotoMono.className} mobile:py-2 peer bg-neutral-100 p-4 text-sm text-neutral-700 focus:outline-none data-[hidden=true]:hidden`,
+        `${robotoMono.className} peer bg-neutral-100 p-4 text-sm text-neutral-700 focus:outline-none data-[hidden=true]:hidden @sm:py-2`,
       )}
       data-hidden={markdownPreviewOpened ? "true" : "false"}
     />
@@ -135,8 +138,12 @@ function MarkdownTextArea() {
 
 function MarkdownPreview() {
   return (
-    <div className="mobile:py-2 :bg-red-200 w-full bg-white p-4 peer-[[data-hidden=true]]:col-span-2 peer-[[data-hidden=true]]:mx-auto peer-[[data-hidden=true]]:max-w-2xl">
-      <p> </p>
+    <div
+      className={clsx(
+        "w-full bg-neutral-100 p-4 peer-[[data-hidden=false]]:hidden peer-[[data-hidden=true]]:col-span-2 peer-[[data-hidden=true]]:mx-auto peer-[[data-hidden=true]]:max-w-2xl @sm:py-2 @sm:peer-[[data-hidden=false]]:block",
+      )}
+    >
+      <p> Preview </p>
     </div>
   );
 }

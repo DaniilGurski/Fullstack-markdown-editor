@@ -2,9 +2,16 @@
 
 @theme {
   --breakpoint-*: initial;
-  --breakpoint-desktop: 79.625em;
+  /* --breakpoint-desktop: 79.625em;
   --breakpoint-tablet: 63.25em;
-  --breakpoint-mobile: 49.625em;
+  --breakpoint-mobile: 49.625em; */
+  --breakpoint-desktop: 48em;
+  --breakpoint-tablet: 48em;
+  --breakpoint-mobile: 36.563em;
+
+  --container-md: 1000px;
+  --container-sm: 605px;
+  --container-editor-sm: 42px;
 
   /* --color-*: initial; */
   --color-neutral-1000: hsl(225, 9%, 9%);
@@ -23,7 +30,7 @@
 
   --width-almost: 90%;
 
-  --editor-header-cols: repeat(auto-fit, minmax(280px, 1fr));
+  /* TODO: tweak min value of a col */
   --editor-main-cols: max-content 1fr;
 }
 
