@@ -1,13 +1,18 @@
 "use client";
 
 import clsx from "clsx";
-import { useAtomValue } from "jotai";
+import { memo } from "react";
+import { useAtomValue, useSetAtom } from "jotai";
 import Button from "@/app/components/buttons/Button";
-import DocumentRenamer from "@/app/components/DocumentRenamer";
+import { MemoizedDocumentRenamer } from "@/app/components/DocumentRenamer";
 import Image from "next/image";
 import logo from "@/public/assets/logo.svg";
 import ThemeSwitch from "@/app/components/ThemeSwitch";
-import { documentPanelOpenedAtom } from "@/app/lib/atoms";
+import {
+  currentUserDocumentAtom,
+  documentPanelOpenedAtom,
+  userDocumentsAtom,
+} from "@/app/lib/atoms";
 
 export default function DocumentPanel() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
@@ -28,7 +33,7 @@ export default function DocumentPanel() {
         <div className="grid gap-y-6">
           <Button> + New Document </Button>
 
-          <DocumentList />
+          <MemoizedDocumentList />
         </div>
       </div>
 
@@ -38,25 +43,58 @@ export default function DocumentPanel() {
 }
 
 function DocumentList() {
+  const userDocuments = useAtomValue(userDocumentsAtom);
   return (
     <ul className="grid gap-y-7">
-      <DocumentItem lastUpdated="01 April 2022" name="" />
-      <DocumentItem lastUpdated="01 April 2022" name="" />
-      <DocumentItem lastUpdated="01 April 2022" name="" />
+      {userDocuments.map((document) => {
+        const { updated_at, document_name, id } = document;
+        return (
+          <DocumentItem
+            lastUpdated={updated_at}
+            name={document_name}
+            id={id}
+            key={id}
+          />
+        );
+      })}
     </ul>
   );
 }
 
+const MemoizedDocumentList = memo(DocumentList);
+
 function DocumentItem({
   lastUpdated,
   name,
+  id,
 }: {
   lastUpdated: string;
   name: string;
+  id: string;
 }) {
+  const setCurrentDocument = useSetAtom(currentUserDocumentAtom);
+  const userDocuments = useAtomValue(userDocumentsAtom);
+
+  const handleOnClick = () => {
+    const targetDocument = userDocuments.find((document) => document.id === id);
+
+    if (!targetDocument) {
+      return;
+    }
+
+    setCurrentDocument({
+      documentName: name,
+      content: targetDocument.content,
+      id,
+    });
+  };
+
   return (
-    <li>
-      <DocumentRenamer topText={lastUpdated} currentDocumentName={name} />
+    <li className="cursor-pointer" onClick={handleOnClick}>
+      <MemoizedDocumentRenamer
+        topText={lastUpdated}
+        currentDocumentName={name}
+      />
     </li>
   );
 }

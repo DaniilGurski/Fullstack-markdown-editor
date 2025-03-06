@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import {
+  currentUserDocumentAtom,
   documentPanelOpenedAtom,
   markdownPreviewOpenedAtom,
 } from "@/app/lib/atoms";
@@ -9,7 +11,7 @@ import clsx from "clsx";
 import Image from "next/image";
 import { Textarea } from "@headlessui/react";
 import PanelButton from "@/app/components/PanelButton";
-import DocumentRenamer from "@/app/components/DocumentRenamer";
+import { MemoizedDocumentRenamer } from "@/app/components/DocumentRenamer";
 import Button from "@/app/components/buttons/Button";
 import IconButton from "@/app/components/buttons/IconButton";
 import logo from "@/public/assets/logo.svg";
@@ -21,6 +23,7 @@ import { robotoMono } from "@/app/fonts";
 
 export default function MarkdownEditor() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
+  const currentDocument = useAtomValue(currentUserDocumentAtom);
   return (
     <article
       className={clsx("min-w-[400px]", !documentPanelOpened && "col-span-2")}
@@ -29,7 +32,7 @@ export default function MarkdownEditor() {
       <div className="@container">
         <EditorHeader />
         <div className="divide-editor-divider @container grid h-dvh grid-cols-1 divide-x-2 @sm:grid-cols-2">
-          <MarkdownTextArea />
+          <MarkdownTextArea currentContent={currentDocument.content} />
           <MarkdownPreview />
         </div>
       </div>
@@ -38,6 +41,7 @@ export default function MarkdownEditor() {
 }
 
 function PrimaryHeader() {
+  const currentDocument = useAtomValue(currentUserDocumentAtom);
   return (
     <header className="@container flex items-center justify-between bg-neutral-800">
       <div className="flex gap-6">
@@ -55,7 +59,10 @@ function PrimaryHeader() {
           aria-hidden="true"
         ></div>
 
-        <DocumentRenamer topText="Document Name" />
+        <MemoizedDocumentRenamer
+          topText="Document Name"
+          currentDocumentName={currentDocument?.documentName}
+        />
       </div>
 
       <div className="flex gap-6 pr-2 @md:pr-4">
@@ -124,14 +131,28 @@ function ToggleMarkdownPreviewButton({ className }: { className?: string }) {
   );
 }
 
-function MarkdownTextArea() {
+function MarkdownTextArea({
+  currentContent = "",
+}: {
+  currentContent?: string;
+}) {
   const markdownPreviewOpened = useAtomValue(markdownPreviewOpenedAtom);
+  const [content, setContent] = useState(currentContent);
+
+  useEffect(() => {
+    if (currentContent) {
+      setContent(currentContent);
+    }
+  }, [currentContent]);
+
   return (
     <Textarea
       className={clsx(
         `${robotoMono.className} peer bg-neutral-100 p-4 text-sm text-neutral-700 focus:outline-none data-[hidden=true]:hidden @sm:py-2`,
       )}
       data-hidden={markdownPreviewOpened ? "true" : "false"}
+      onChange={(e) => setContent(e.target.value)}
+      value={content}
     />
   );
 }

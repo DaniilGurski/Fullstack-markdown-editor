@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Field, Input, Label } from "@headlessui/react";
 import iconDocument from "@/public/assets/icon-document.svg";
 import { useEffect, useState } from "react";
+import { memo } from "react";
 
 type TDocumentRenamerProps = {
   topText: string;
@@ -14,13 +15,10 @@ export default function DocumentRenamer({
   topText,
   currentDocumentName = "",
 }: TDocumentRenamerProps) {
-  // TODO: Should this state be global ?
   // TODO: Add debounce ?
-
   const [documentName, setDocumentName] = useState(currentDocumentName);
 
   const addFileExtention = (value: string) => {
-    console.log("add file extention");
     if (value === "") {
       setDocumentName("untitled-document.md");
     } else if (!value.endsWith(".md")) {
@@ -34,6 +32,12 @@ export default function DocumentRenamer({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (currentDocumentName) {
+      setDocumentName(currentDocumentName);
+    }
+  }, [currentDocumentName]);
 
   return (
     <form className="flex items-center gap-4 text-neutral-100">
@@ -53,3 +57,5 @@ export default function DocumentRenamer({
     </form>
   );
 }
+
+export const MemoizedDocumentRenamer = memo(DocumentRenamer);
