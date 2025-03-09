@@ -1,9 +1,9 @@
-import Image from "next/image";
-import IconButton from "./buttons/IconButton";
-import iconMenu from "@/public/assets/icon-menu.svg";
-import iconClose from "@/public/assets/icon-close.svg";
 import { useAtom } from "jotai";
 import { documentPanelOpenedAtom } from "@/app/lib/atoms";
+import Image from "next/image";
+import IconButton from "@/app/components/buttons/IconButton";
+import iconMenu from "@/public/assets/icon-menu.svg";
+import iconClose from "@/public/assets/icon-close.svg";
 
 export default function PanelButton() {
   const [documentPanelOpened, setDocumentPanelOpened] = useAtom(

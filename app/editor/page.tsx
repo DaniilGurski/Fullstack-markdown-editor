@@ -1,14 +1,15 @@
 "use client";
 
-import DocumentPanel from "@/app/components/DocumentPanel";
-import MarkdownEditor from "@/app/components/MarkdownEditor";
+import DocumentPanel from "@/app/components/editor/panel/DocumentPanel";
+import MarkdownEditor from "@/app/components/editor/MarkdownEditor";
 import { createClient } from "@/app/utils/supabase/client";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { userDocumentsAtom } from "@/app/lib/atoms";
 
 export default function Page() {
   const setUserDocuments = useSetAtom(userDocumentsAtom);
+  const userDocuments = useAtomValue(userDocumentsAtom);
   const supabase = createClient();
   const { auth } = supabase;
 
@@ -26,7 +27,6 @@ export default function Page() {
         .eq("user_id", user?.id);
 
       if (error) {
-        console.log("error accured when selecting user documents");
         throw new Error(error.message);
       }
 
@@ -35,6 +35,10 @@ export default function Page() {
 
     getUserDocuments();
   }, [auth, setUserDocuments, supabase]);
+
+  useEffect(() => {
+    console.log("user document changed");
+  }, [userDocuments]);
 
   return (
     <main className="grid grid-cols-(--editor-main-cols)">

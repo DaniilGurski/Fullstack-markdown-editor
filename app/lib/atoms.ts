@@ -11,7 +11,7 @@ export const documentPanelOpenedAtom = atom(false);
 // An array of documents
 export const userDocumentsAtom = atom<z.infer<typeof DocumentSchema>[]>([]);
 export const currentUserDocumentAtom = atom<TCurrentUserDocument>({
-  documentName: "",
+  documentName: "untitled-document.md",
   content: "",
   id: "",
 });
