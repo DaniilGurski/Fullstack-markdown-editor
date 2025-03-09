@@ -27,18 +27,13 @@ export default function DocumentRenamer({
 
   const addFileExtention = (value: string) => {
     if (value === "") {
-      setDocumentName("untitled-document.md");
+      return "untitled-document.md";
     } else if (!value.endsWith(".md")) {
-      setDocumentName(documentName + ".md");
+      return documentName + ".md";
+    } else {
+      return documentName;
     }
   };
-
-  // // TODO: Is this neccessary ? (I mean what if the document name on upload has .md ?)
-  // useEffect(() => {
-  //   addFileExtention(documentName);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   useEffect(() => {
     if (currentDocumentName) {
@@ -57,11 +52,11 @@ export default function DocumentRenamer({
         <Input
           className="border-b-2 border-transparent pb-1 caret-orange-200 focus:border-neutral-100 focus:border-b-neutral-100 focus:outline-0"
           value={documentName}
-          onBlur={(e) => {
-            addFileExtention(e.currentTarget.value);
+          onBlur={() => {
+            setDocumentName(addFileExtention(documentName));
             setCurrentDocument({
               ...currentUserDocument,
-              documentName,
+              documentName: addFileExtention(documentName),
             });
           }}
           onChange={(e) => setDocumentName(e.currentTarget.value)}
