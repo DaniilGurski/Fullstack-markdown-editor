@@ -2,7 +2,7 @@
 
 import { useAtomValue } from "jotai";
 import { documentPanelOpenedAtom } from "@/app/lib/atoms";
-import { currentUserDocumentAtom } from "@/app/lib/atoms";
+
 import PrimaryHeader from "@/app/components/editor/PrimaryHeader";
 import EditorHeader from "@/app/components/editor/EditorHeader";
 import MarkdownTextArea from "@/app/components/editor/MarkdownTextArea";
@@ -11,7 +11,7 @@ import clsx from "clsx";
 
 export default function MarkdownEditor() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
-  const currentDocument = useAtomValue(currentUserDocumentAtom);
+
   return (
     <article
       className={clsx("min-w-[400px]", !documentPanelOpened && "col-span-2")}
