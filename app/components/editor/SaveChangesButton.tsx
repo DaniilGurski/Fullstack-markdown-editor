@@ -17,6 +17,7 @@ export default function SaveChangesButton() {
   const [userDocuments, setUserDocuments] = useAtom(userDocumentsAtom);
 
   const updateDocuments = (savedDocument: TDocument) => {
+    console.log(savedDocument);
     setCurrentDocument({
       id: savedDocument.id,
       documentName: savedDocument.document_name,
@@ -33,8 +34,6 @@ export default function SaveChangesButton() {
       updatedUserDocuments.push(savedDocument);
     }
 
-    console.log("adding to user documents");
-    console.log(updatedUserDocuments);
     setUserDocuments([...updatedUserDocuments]);
   };
 

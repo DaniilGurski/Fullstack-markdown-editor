@@ -5,7 +5,7 @@ import { userDocumentsAtom } from "@/app/lib/atoms";
 import { memo } from "react";
 import DocumentItem from "@/app/components/editor/panel/DocumentItem";
 
-export default function DocumentList() {
+export function DocumentList() {
   const userDocuments = useAtomValue(userDocumentsAtom);
   return (
     <ul className="grid gap-y-7">

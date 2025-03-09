@@ -18,18 +18,9 @@ export default function MarkdownTextArea({
   const markdownPreviewOpened = useAtomValue(markdownPreviewOpenedAtom);
 
   // FIXME: Remove unnecessary rerenders (the component will be rerendered if we change other parts of the document state)
-  const [currentDocument, setCurrentDocument] = useAtom(
+  const [currentUserDocument, setCurrentUserDocument] = useAtom(
     currentUserDocumentAtom,
   );
-
-  useEffect(() => {
-    if (currentContent) {
-      setCurrentDocument({
-        ...currentDocument,
-        content: currentContent,
-      });
-    }
-  }, [currentDocument, currentContent, setCurrentDocument]);
 
   return (
     <Textarea
@@ -38,9 +29,12 @@ export default function MarkdownTextArea({
       )}
       data-hidden={markdownPreviewOpened ? "true" : "false"}
       onChange={(e) =>
-        setCurrentDocument({ ...currentDocument, content: e.target.value })
+        setCurrentUserDocument({
+          ...currentUserDocument,
+          content: e.target.value,
+        })
       }
-      value={currentDocument.content}
+      value={currentUserDocument.content}
     />
   );
 }

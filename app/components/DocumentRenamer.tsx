@@ -5,6 +5,8 @@ import { Field, Input, Label } from "@headlessui/react";
 import iconDocument from "@/public/assets/icon-document.svg";
 import { useEffect, useState } from "react";
 import { memo } from "react";
+import { currentUserDocumentAtom } from "../lib/atoms";
+import { useAtom } from "jotai";
 
 type TDocumentRenamerProps = {
   topText: string;
@@ -16,7 +18,12 @@ export default function DocumentRenamer({
   currentDocumentName = "",
 }: TDocumentRenamerProps) {
   // TODO: Add debounce ?
-  const [documentName, setDocumentName] = useState(currentDocumentName);
+  const [currentUserDocument, setCurrentDocument] = useAtom(
+    currentUserDocumentAtom,
+  );
+  const [documentName, setDocumentName] = useState(
+    currentUserDocument.documentName,
+  );
 
   const addFileExtention = (value: string) => {
     if (value === "") {
@@ -26,12 +33,12 @@ export default function DocumentRenamer({
     }
   };
 
-  // TODO: Is this neccessary ? (I mean what if the document name on upload has .md ?)
-  useEffect(() => {
-    addFileExtention(documentName);
+  // // TODO: Is this neccessary ? (I mean what if the document name on upload has .md ?)
+  // useEffect(() => {
+  //   addFileExtention(documentName);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   useEffect(() => {
     if (currentDocumentName) {
@@ -50,7 +57,13 @@ export default function DocumentRenamer({
         <Input
           className="border-b-2 border-transparent pb-1 caret-orange-200 focus:border-neutral-100 focus:border-b-neutral-100 focus:outline-0"
           value={documentName}
-          onBlur={(e) => addFileExtention(e.currentTarget.value)}
+          onBlur={(e) => {
+            addFileExtention(e.currentTarget.value);
+            setCurrentDocument({
+              ...currentUserDocument,
+              documentName,
+            });
+          }}
           onChange={(e) => setDocumentName(e.currentTarget.value)}
         />
       </Field>
