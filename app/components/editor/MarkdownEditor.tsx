@@ -20,7 +20,7 @@ export default function MarkdownEditor() {
       <div className="@container">
         <EditorHeader />
         <div className="divide-editor-divider @container grid h-dvh grid-cols-1 divide-x-2 @sm:grid-cols-2">
-          <MarkdownTextArea currentContent={currentDocument.content} />
+          <MarkdownTextArea />
           <MarkdownPreview />
         </div>
       </div>
