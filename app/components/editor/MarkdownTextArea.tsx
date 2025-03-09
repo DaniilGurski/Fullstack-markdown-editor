@@ -5,16 +5,12 @@ import {
   markdownPreviewOpenedAtom,
   currentUserDocumentAtom,
 } from "@/app/lib/atoms";
-import { useEffect } from "react";
+
 import { robotoMono } from "@/app/fonts";
 import { Textarea } from "@headlessui/react";
 import clsx from "clsx";
 
-export default function MarkdownTextArea({
-  currentContent = "",
-}: {
-  currentContent?: string;
-}) {
+export default function MarkdownTextArea() {
   const markdownPreviewOpened = useAtomValue(markdownPreviewOpenedAtom);
 
   // FIXME: Remove unnecessary rerenders (the component will be rerendered if we change other parts of the document state)
