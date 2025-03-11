@@ -15,3 +15,6 @@ export const currentUserDocumentAtom = atom<TCurrentUserDocument>({
   content: "",
   id: "",
 });
+
+// I'm using an atom for this modal to make it easier to pass a ref to the modal, since it's at the component level of the page while the delete document butotn is deeper in the component tree.
+export const deleteModalOpenedAtom = atom(false);

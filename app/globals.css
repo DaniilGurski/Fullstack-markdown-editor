@@ -46,6 +46,7 @@
   /* markdown components */
   --color-markdown-preview-header: var(--color-neutral-700);
   --color-markdown-preview-block: var(--color-neutral-200);
+  --color-modal-backdrop: var(--color-neutral-1000);
 }
 
 @layer components {

@@ -1,7 +1,10 @@
 "use client";
 
-import { useAtomValue } from "jotai";
-import { currentUserDocumentAtom } from "@/app/lib/atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import {
+  currentUserDocumentAtom,
+  deleteModalOpenedAtom,
+} from "@/app/lib/atoms";
 import logo from "@/public/assets/logo.svg";
 import iconDelete from "@/public/assets/icon-delete.svg";
 import Image from "next/image";
@@ -12,6 +15,7 @@ import SaveChangesButton from "@/app/components/editor/SaveChangesButton";
 
 export default function PrimaryHeader() {
   const currentDocument = useAtomValue(currentUserDocumentAtom);
+  const setDeleteModalOpened = useSetAtom(deleteModalOpenedAtom);
 
   return (
     <header className="@container flex items-center justify-between bg-neutral-800">
@@ -37,7 +41,10 @@ export default function PrimaryHeader() {
       </div>
 
       <div className="flex gap-6 pr-2 @md:pr-4">
-        <IconButton srOnlyLabel="Delete document">
+        <IconButton
+          srOnlyLabel="Delete document"
+          onClick={() => setDeleteModalOpened(true)}
+        >
           <Image src={iconDelete} alt="" />
         </IconButton>
 

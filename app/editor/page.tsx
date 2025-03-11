@@ -6,6 +6,7 @@ import { createClient } from "@/app/utils/supabase/client";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 import { userDocumentsAtom } from "@/app/lib/atoms";
+import DeleteModal from "@/app/components/editor/DeleteModal";
 
 export default function Page() {
   const setUserDocuments = useSetAtom(userDocumentsAtom);
@@ -44,6 +45,7 @@ export default function Page() {
     <main className="grid grid-cols-(--editor-main-cols)">
       <DocumentPanel />
       <MarkdownEditor />
+      <DeleteModal />
     </main>
   );
 }
