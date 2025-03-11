@@ -1,5 +1,5 @@
 import { robotoSlab } from "@/app/fonts";
-import { forwardRef, Ref } from "react";
+import React, { forwardRef, Ref } from "react";
 import Button from "@/app/components/buttons/Button";
 
 type TModalProps = {
@@ -20,9 +20,17 @@ function ConfirmModal(
   }: TModalProps,
   ref: Ref<HTMLDialogElement>,
 ) {
+  const onDialogClick = (e: React.MouseEvent) => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+    onCancel();
+  };
+
   return (
     <dialog
       className="backdrop:bg-modal-backdrop/40 fixed top-[50%] mx-auto w-full max-w-96 translate-y-[-50%] rounded-sm bg-neutral-100 p-6"
+      onClick={onDialogClick}
       ref={ref}
     >
       <div className="grid gap-y-4">

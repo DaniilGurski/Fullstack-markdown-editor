@@ -37,9 +37,7 @@ export default function Page() {
     getUserDocuments();
   }, [auth, setUserDocuments, supabase]);
 
-  useEffect(() => {
-    console.log("user document changed");
-  }, [userDocuments]);
+  useEffect(() => {}, [userDocuments]);
 
   return (
     <main className="grid grid-cols-(--editor-main-cols)">

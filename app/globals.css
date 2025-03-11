@@ -31,7 +31,7 @@
   --width-almost: 90%;
 
   /* TODO: tweak min value of a col */
-  --editor-main-cols: max-content 1fr;
+  --editor-main-cols: 18.75rem 1fr;
 }
 
 @theme inline {

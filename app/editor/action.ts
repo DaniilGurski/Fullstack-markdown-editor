@@ -38,3 +38,18 @@ export async function saveDocument(
 
   return document[0];
 }
+
+export async function deleteDocument(documentId: string): Promise<TDocument[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("documents")
+    .delete()
+    .eq("id", documentId)
+    .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data[0];
+}

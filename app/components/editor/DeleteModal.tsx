@@ -1,21 +1,53 @@
+import { deleteDocument } from "@/app/editor/action";
 import ConfirmModal from "../ConfirmModal";
 import {
   currentUserDocumentAtom,
+  currentUserDocumentDefault,
   deleteModalOpenedAtom,
+  userDocumentsAtom,
 } from "@/app/lib/atoms";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
+import { isUserDocument } from "@/app/lib/typeguards";
 
 export default function DeleteModal() {
-  const currentUserDocument = useAtomValue(currentUserDocumentAtom);
+  const [currentUserDocument, setCurrentUserDocument] = useAtom(
+    currentUserDocumentAtom,
+  );
+  const setUserDocuments = useSetAtom(userDocumentsAtom);
   const [deleteModalOpened, setDeleteModalOpened] = useAtom(
     deleteModalOpenedAtom,
   );
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
 
+  const createNewDocument = () => {
+    setCurrentUserDocument(currentUserDocumentDefault);
+    setDeleteModalOpened(false);
+  };
+
+  const handleConfirmClick = async () => {
+    if (!currentUserDocument.id) {
+      createNewDocument();
+      return;
+    }
+
+    try {
+      const data = await deleteDocument(currentUserDocument.id);
+      if (isUserDocument(data)) {
+        setUserDocuments((prev) =>
+          prev.filter((document) => document.id !== data.id),
+        );
+        createNewDocument();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     if (deleteModalOpened && deleteModalRef.current) {
-      console.log(deleteModalRef.current);
       deleteModalRef.current.showModal();
     } else {
       deleteModalRef.current?.close();
@@ -28,9 +60,7 @@ export default function DeleteModal() {
       title="Delete this document ?"
       body={`Are you sure you want to delete the '${currentUserDocument.documentName}' document and its contents? This action cannot be reversed.`}
       confirmButtonText="Confirm & Delete"
-      onConfirm={() => {
-        console.log("deleting document...");
-      }}
+      onConfirm={handleConfirmClick}
       onCancel={() => setDeleteModalOpened(false)}
     />
   );

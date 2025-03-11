@@ -1,7 +1,11 @@
 "use client";
 
-import { useAtomValue } from "jotai";
-import { documentPanelOpenedAtom } from "@/app/lib/atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import {
+  currentUserDocumentAtom,
+  currentUserDocumentDefault,
+  documentPanelOpenedAtom,
+} from "@/app/lib/atoms";
 import logo from "@/public/assets/logo.svg";
 import Image from "next/image";
 import { MemoizedDocumentList } from "@/app/components/editor/panel/DocumentList";
@@ -11,6 +15,11 @@ import clsx from "clsx";
 
 export default function DocumentPanel() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
+  const setCurrentUserDocument = useSetAtom(currentUserDocumentAtom);
+
+  const handleCreateNewDocument = () => {
+    setCurrentUserDocument(currentUserDocumentDefault);
+  };
 
   return (
     <div
@@ -26,7 +35,7 @@ export default function DocumentPanel() {
         <h2 className="text-sm font-medium uppercase"> My documents </h2>
 
         <div className="grid gap-y-6">
-          <Button> + New Document </Button>
+          <Button onClick={handleCreateNewDocument}> + New Document </Button>
 
           <MemoizedDocumentList />
         </div>
