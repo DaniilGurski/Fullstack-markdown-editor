@@ -5,7 +5,7 @@ import { TCurrentUserDocument } from "@/app/lib/definitions/states";
 import { z } from "zod";
 
 export const markdownPreviewOpenedAtom = atom(false);
-export const darkModeOnAtom = atomWithStorage("markdownDarkMode", false);
+export const darkThemeOnAtom = atomWithStorage("markdown-dark-theme-on", false);
 export const documentPanelOpenedAtom = atom(false);
 
 // An array of documents

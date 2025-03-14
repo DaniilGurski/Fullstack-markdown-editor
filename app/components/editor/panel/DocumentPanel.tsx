@@ -30,7 +30,11 @@ export default function DocumentPanel() {
       id="document-panel"
     >
       <div className="grid gap-y-7">
-        <Image className="tablet:hidden inline-block" src={logo} alt="logo" />
+        <Image
+          className="hide-panel-logo:hidden inline-block"
+          src={logo}
+          alt="logo"
+        />
 
         <h2 className="text-sm font-medium uppercase"> My documents </h2>
 

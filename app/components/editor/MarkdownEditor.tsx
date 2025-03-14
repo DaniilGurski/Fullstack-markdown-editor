@@ -19,7 +19,7 @@ export default function MarkdownEditor() {
       <PrimaryHeader />
       <div className="@container">
         <EditorHeader />
-        <div className="divide-editor-divider @container grid h-dvh grid-cols-1 divide-x-2 @sm:grid-cols-2">
+        <div className="theme-dark:divide-neutral-600 @container grid h-dvh grid-cols-1 divide-x-2 divide-neutral-300 @sm:grid-cols-2">
           <MarkdownTextArea />
           <MarkdownPreview />
         </div>

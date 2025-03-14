@@ -2,16 +2,15 @@
 
 @theme {
   --breakpoint-*: initial;
-  /* --breakpoint-desktop: 79.625em;
-  --breakpoint-tablet: 63.25em;
-  --breakpoint-mobile: 49.625em; */
+
   --breakpoint-desktop: 48em;
   --breakpoint-tablet: 48em;
   --breakpoint-mobile: 36.563em;
+  --breakpoint-hide-panel-logo: 81.25rem;
 
   --container-md: 1000px;
   --container-sm: 605px;
-  --container-editor-sm: 42px;
+  /* --container-editor-sm: 42px; */
 
   /* --color-*: initial; */
   --color-neutral-1000: hsl(225, 9%, 9%);
@@ -30,7 +29,6 @@
 
   --width-almost: 90%;
 
-  /* TODO: tweak min value of a col */
   --editor-main-cols: 18.75rem 1fr;
 }
 
@@ -65,3 +63,5 @@
     }
   }
 }
+
+@custom-variant theme-dark (&:where([data-theme="dark"] *));

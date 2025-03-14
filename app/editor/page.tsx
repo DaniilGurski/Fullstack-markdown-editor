@@ -3,16 +3,17 @@
 import DocumentPanel from "@/app/components/editor/panel/DocumentPanel";
 import MarkdownEditor from "@/app/components/editor/MarkdownEditor";
 import { createClient } from "@/app/utils/supabase/client";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useEffect } from "react";
-import { userDocumentsAtom } from "@/app/lib/atoms";
+import { darkThemeOnAtom, userDocumentsAtom } from "@/app/lib/atoms";
 import DeleteModal from "@/app/components/editor/DeleteModal";
 
 export default function Page() {
   const setUserDocuments = useSetAtom(userDocumentsAtom);
-  const userDocuments = useAtomValue(userDocumentsAtom);
   const supabase = createClient();
   const { auth } = supabase;
+
+  const setDarkThemeOn = useSetAtom(darkThemeOnAtom);
 
   // TODO: use react query instead ?
   useEffect(() => {
@@ -37,7 +38,21 @@ export default function Page() {
     getUserDocuments();
   }, [auth, setUserDocuments, supabase]);
 
-  useEffect(() => {}, [userDocuments]);
+  // handle prefers color scheme: dark / light
+  useEffect(() => {
+    const mediaWatcher = window.matchMedia("(prefers-color-scheme: dark)");
+    setDarkThemeOn(mediaWatcher.matches);
+
+    const updatePrefersDarkTheme = (e: MediaQueryListEvent) => {
+      setDarkThemeOn(e.matches);
+    };
+
+    mediaWatcher.addEventListener("change", updatePrefersDarkTheme);
+
+    return () => {
+      mediaWatcher.removeEventListener("change", updatePrefersDarkTheme);
+    };
+  });
 
   return (
     <main className="grid grid-cols-(--editor-main-cols)">

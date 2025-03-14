@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { roboto } from "./fonts";
+import Theme from "@/app/components/Theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} bg-neutral-200`}>{children}</body>
+      <body className={`${roboto.className} bg-neutral-200`}>
+        <Theme>{children}</Theme>
+      </body>
     </html>
   );
 }
