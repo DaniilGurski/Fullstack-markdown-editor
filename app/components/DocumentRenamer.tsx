@@ -42,7 +42,10 @@ export default function DocumentRenamer({
   }, [currentDocumentName]);
 
   return (
-    <form className="flex items-center gap-4 text-neutral-100">
+    <form
+      className="flex items-center gap-4 text-neutral-100"
+      onSubmit={(e) => e.preventDefault()}
+    >
       <Image className="" src={iconDocument} alt="document" />
 
       <Field className="grid">
