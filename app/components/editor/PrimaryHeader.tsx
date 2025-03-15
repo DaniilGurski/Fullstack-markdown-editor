@@ -12,6 +12,7 @@ import PanelButton from "@/app/components/PanelButton";
 import { MemoizedDocumentRenamer } from "@/app/components/DocumentRenamer";
 import IconButton from "@/app/components/buttons/IconButton";
 import SaveChangesButton from "@/app/components/editor/SaveChangesButton";
+import React from "react";
 
 export default function PrimaryHeader() {
   const currentDocument = useAtomValue(currentUserDocumentAtom);
@@ -36,6 +37,7 @@ export default function PrimaryHeader() {
 
         <MemoizedDocumentRenamer
           topText="Document Name"
+          renamedDocumentId={currentDocument.id}
           currentDocumentName={currentDocument?.documentName}
         />
       </div>

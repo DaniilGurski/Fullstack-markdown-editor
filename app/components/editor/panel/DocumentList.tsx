@@ -8,6 +8,7 @@ import { format } from "date-fns";
 
 export function DocumentList() {
   const userDocuments = useAtomValue(userDocumentsAtom);
+
   return (
     <ul className="grid gap-y-7">
       {userDocuments.map((document) => {

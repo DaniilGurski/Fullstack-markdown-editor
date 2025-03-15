@@ -5,7 +5,6 @@ import { useSetAtom } from "jotai";
 import { useAtomValue } from "jotai";
 import { MemoizedDocumentRenamer } from "@/app/components/DocumentRenamer";
 
-// TODO: save renamed document name
 export default function DocumentItem({
   lastUpdated,
   name,
@@ -36,7 +35,9 @@ export default function DocumentItem({
     <li className="cursor-pointer" onClick={handleOnClick}>
       <MemoizedDocumentRenamer
         topText={lastUpdated}
+        renamedDocumentId={id}
         currentDocumentName={name}
+        save
       />
     </li>
   );

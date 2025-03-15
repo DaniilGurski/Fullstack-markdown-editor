@@ -32,7 +32,6 @@ export async function saveDocument(
     .select();
 
   if (error) {
-    console.error("error when finding document");
     throw new Error(error.message);
   }
 
@@ -52,4 +51,17 @@ export async function deleteDocument(documentId: string): Promise<TDocument[]> {
   }
 
   return data[0];
+}
+
+export async function saveDocumentName(documentId: string, newName: string) {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("documents")
+    .update({ document_name: newName })
+    .eq("id", documentId)
+    .select();
+
+  if (error) {
+    throw new Error(error.message);
+  }
 }
