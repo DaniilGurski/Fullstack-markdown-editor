@@ -39,6 +39,7 @@ export default function Page() {
   }, [auth, setUserDocuments, supabase]);
 
   // handle prefers color scheme: dark / light
+  // TODO: move this from useEffect and only apply on first render ?
   useEffect(() => {
     const mediaWatcher = window.matchMedia("(prefers-color-scheme: dark)");
     setDarkThemeOn(mediaWatcher.matches);
@@ -55,7 +56,7 @@ export default function Page() {
   });
 
   return (
-    <main className="grid grid-cols-(--editor-main-cols)">
+    <main className="theme-dark:bg-neutral-1000 grid grid-cols-(--editor-main-cols) bg-neutral-100">
       <DocumentPanel />
       <MarkdownEditor />
       <DeleteModal />
