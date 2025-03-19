@@ -11,6 +11,9 @@ import Button from "@/app/components/buttons/Button";
 import FormInput from "@/app/components/FormInput";
 import { robotoSlab } from "@/app/fonts";
 import { loginAction } from "@/app/(auth)/login/action";
+import { useState } from "react";
+import { isAuthApiError } from "@supabase/supabase-js";
+import { isUser } from "@/app/lib/typeguards";
 import { redirect } from "next/navigation";
 
 export default function LoginForm() {
@@ -18,6 +21,7 @@ export default function LoginForm() {
     resolver: zodResolver(LoginSchema),
   });
 
+  const [errorMessage, setErrorMessage] = useState("");
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<LoginFormFields> = async (data) => {
@@ -25,11 +29,18 @@ export default function LoginForm() {
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const user = await loginAction(formData);
+    const res = await loginAction(formData);
 
-    // redirect to editor of login successfull
-    if (user) {
+    if (isUser(res)) {
       redirect("/editor");
+    }
+
+    if (isAuthApiError(res)) {
+      if (res.code === "invalid_credentials") {
+        setErrorMessage("Invalid credentials.");
+      }
+    } else {
+      setErrorMessage("Unknown error occurred.");
     }
   };
 
@@ -54,7 +65,6 @@ export default function LoginForm() {
             <FormInput
               fieldLabel="Email Adress"
               error={errors.email}
-              type="email"
               placeholder="e.g 5opka@gmail.com"
               {...register("email")}
             />
@@ -68,6 +78,12 @@ export default function LoginForm() {
             />
           </div>
         </Fieldset>
+
+        <div aria-live="polite" className="contents">
+          {errorMessage && (
+            <p className="font-bold text-red-400">{errorMessage}</p>
+          )}
+        </div>
 
         <div className="grid gap-6 text-center">
           <Button> Login </Button>

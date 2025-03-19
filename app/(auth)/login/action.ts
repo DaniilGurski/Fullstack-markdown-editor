@@ -2,41 +2,41 @@
 
 import { LoginSchema } from "@/app/lib/schemas/login";
 import { createClient } from "@/app/utils/supabase/server";
+import { AuthApiError, isAuthApiError, User } from "@supabase/supabase-js";
 
 export async function loginUser(email: string, password: string) {
   const { auth } = await createClient();
-  const { data: user, error } = await auth.signInWithPassword({
+  const { data, error } = await auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
-    throw new Error(error.message);
+    throw error;
   }
 
-  return user;
+  return data.user;
 }
 
-export async function loginAction(data: FormData) {
+export async function loginAction(
+  data: FormData,
+): Promise<User | AuthApiError | { message: string }> {
   const formValues = Object.fromEntries(data);
   const parsed = await LoginSchema.safeParse(formValues);
 
   if (!parsed.success) {
-    return {
-      error: parsed.error,
-      message: "Invalid login data",
-    };
+    throw new Error("Invalid login data.");
   }
 
   const { email, password } = parsed.data;
   try {
-    const user = await loginUser(email, password);
-    return user;
+    const data = await loginUser(email, password);
+    return data;
   } catch (error) {
-    if (error instanceof Error) {
-      return { message: error.message };
-    } else {
-      return { message: "An unknown error occurred (Login) " };
+    if (isAuthApiError(error)) {
+      return { ...error };
     }
   }
+
+  return { message: "Unknown error" };
 }

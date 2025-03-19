@@ -21,7 +21,7 @@ export default function MarkdownTextArea() {
   return (
     <Textarea
       className={clsx(
-        `${robotoMono.className} peer theme-dark:text-neutral-400 p-4 text-sm text-neutral-700 focus:outline-none data-[hidden=true]:hidden @sm:py-2`,
+        `${robotoMono.className} peer theme-dark:text-neutral-400 size-full resize-none overflow-y-scroll bg-transparent p-4 text-sm text-neutral-700 focus:outline-none data-[hidden=true]:hidden @sm:py-2`,
       )}
       data-hidden={markdownPreviewOpened ? "true" : "false"}
       onChange={(e) =>

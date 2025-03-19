@@ -1,0 +1,49 @@
+@reference "./globals.css";
+
+@layer base {
+  #markdown-preview {
+    h1 {
+      @apply theme-dark:text-neutral-100 text-[2rem] font-bold text-neutral-700;
+    }
+
+    h2 {
+      @apply theme-dark:text-neutral-100 text-[1.75rem] font-light text-neutral-700;
+    }
+
+    h3 {
+      @apply theme-dark:text-neutral-100 text-2xl font-bold text-neutral-700;
+    }
+
+    h4 {
+      @apply theme-dark:text-neutral-100 text-xl font-bold text-neutral-700;
+    }
+
+    h5 {
+      @apply theme-dark:text-neutral-100 text-base font-bold text-neutral-700;
+    }
+
+    h6 {
+      @apply text-sm font-bold text-orange-200;
+    }
+
+    ul {
+      @apply list-disc gap-y-2 pl-8 marker:text-orange-200;
+    }
+
+    ol {
+      @apply list-decimal gap-y-2 pl-8;
+    }
+
+    blockquote {
+      @apply theme-dark:bg-neutral-800 theme-dark:text-neutral-100 rounded-sm border-l-4 border-l-orange-200 bg-neutral-200 p-6 font-bold text-neutral-700;
+    }
+
+    code {
+      @apply theme-dark:text-neutral-100 text-neutral-700;
+    }
+
+    pre {
+      @apply theme-dark:text-neutral-100 theme-dark:bg-neutral-800 rounded-sm bg-neutral-200 p-6 text-neutral-700;
+    }
+  }
+}

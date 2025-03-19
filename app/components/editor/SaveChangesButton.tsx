@@ -17,7 +17,6 @@ export default function SaveChangesButton() {
   const [userDocuments, setUserDocuments] = useAtom(userDocumentsAtom);
 
   const updateDocuments = (savedDocument: TDocument) => {
-    console.log(savedDocument);
     setCurrentDocument({
       id: savedDocument.id,
       documentName: savedDocument.document_name,

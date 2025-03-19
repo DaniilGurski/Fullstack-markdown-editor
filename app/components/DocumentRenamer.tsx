@@ -31,18 +31,20 @@ export default function DocumentRenamer({
     currentUserDocument.documentName,
   );
 
-  const addFileExtention = (value: string) => {
+  const formatFileName = (value: string) => {
+    value = value.split(" ").join("-");
+
     if (value === "") {
       return "untitled-document.md";
     } else if (!value.endsWith(".md")) {
-      return documentName + ".md";
+      return value + ".md";
     } else {
-      return documentName;
+      return value;
     }
   };
 
   const handleRenamerBlur = async () => {
-    const formattedDocumentName = addFileExtention(documentName);
+    const formattedDocumentName = formatFileName(documentName);
 
     setDocumentName(formattedDocumentName);
     if (renamedDocumentId === currentUserDocument.id) {

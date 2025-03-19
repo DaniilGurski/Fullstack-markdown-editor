@@ -1,3 +1,5 @@
+"use client";
+
 import { deleteDocument } from "@/app/editor/action";
 import ConfirmModal from "../ConfirmModal";
 import {

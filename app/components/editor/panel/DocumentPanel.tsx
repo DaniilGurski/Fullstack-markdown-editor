@@ -12,13 +12,25 @@ import { MemoizedDocumentList } from "@/app/components/editor/panel/DocumentList
 import ThemeSwitch from "@/app/components/ThemeSwitch";
 import Button from "@/app/components/buttons/Button";
 import clsx from "clsx";
+import { signOut } from "@/app/editor/action";
+import { tryCatch } from "@/app/utils/helpers";
+import { useRouter } from "next/navigation";
 
+// TODO: add overflow scroll when there are too many documents
 export default function DocumentPanel() {
   const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
   const setCurrentUserDocument = useSetAtom(currentUserDocumentAtom);
+  const router = useRouter();
 
   const handleCreateNewDocument = () => {
     setCurrentUserDocument(currentUserDocumentDefault);
+  };
+
+  const handleLogOutButton = () => {
+    tryCatch(async () => {
+      await signOut();
+      router.replace("/login");
+    });
   };
 
   return (
@@ -45,7 +57,11 @@ export default function DocumentPanel() {
         </div>
       </div>
 
-      <ThemeSwitch />
+      <div className="grid gap-y-4">
+        <ThemeSwitch />
+
+        <Button onClick={handleLogOutButton}> Sign out </Button>
+      </div>
     </div>
   );
 }

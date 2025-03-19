@@ -10,7 +10,7 @@ export function DocumentList() {
   const userDocuments = useAtomValue(userDocumentsAtom);
 
   return (
-    <ul className="grid gap-y-7">
+    <ul className="grid h-96 content-start gap-y-7 overflow-y-scroll">
       {userDocuments.map((document) => {
         const { updated_at, document_name, id } = document;
         const formattedUpdateDate = format(new Date(updated_at), "dd MMMM y");

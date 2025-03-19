@@ -7,7 +7,7 @@ export default function EditorHeader() {
   const markdownPreviewOpened = useAtomValue(markdownPreviewOpenedAtom);
 
   return (
-    <header className="theme-dark:bg-neutral-900 theme-dark:text-neutral-400 theme-dark:divide-neutral-600 grid grid-cols-1 divide-x-2 divide-neutral-300 bg-neutral-200 font-medium text-neutral-500 @sm:grid-cols-2">
+    <header className="theme-dark:bg-neutral-900 theme-dark:text-neutral-400 theme-dark:divide-neutral-600 grid grid-cols-1 divide-x-[1px] divide-neutral-300 bg-neutral-200 font-medium text-neutral-500 @sm:grid-cols-2">
       <div
         className={clsx(
           "justify-between p-4",

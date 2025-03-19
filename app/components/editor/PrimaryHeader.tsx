@@ -42,7 +42,7 @@ export default function PrimaryHeader() {
         />
       </div>
 
-      <div className="flex gap-6 pr-2 @md:pr-4">
+      <div className="hidden gap-6 pr-2 @sm:flex @md:pr-4">
         <IconButton
           srOnlyLabel="Delete document"
           onClick={() => setDeleteModalOpened(true)}

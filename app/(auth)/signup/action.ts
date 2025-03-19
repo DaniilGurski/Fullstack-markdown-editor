@@ -5,13 +5,13 @@ import { createClient } from "@/app/utils/supabase/server";
 
 export async function signUpUser(email: string, password: string) {
   const { auth } = await createClient();
-  const { data: user, error } = await auth.signUp({ email, password });
+  const { data, error } = await auth.signUp({ email, password });
 
   if (error) {
-    throw new Error(error.message);
+    throw error;
   }
 
-  return user;
+  return data.user;
 }
 
 export async function signUpAction(data: FormData) {
@@ -26,14 +26,13 @@ export async function signUpAction(data: FormData) {
   }
 
   const { email, password } = parsed.data;
+
   try {
-    const user = await signUpUser(email, password);
-    return user;
+    const data = await signUpUser(email, password);
+    return data;
   } catch (error) {
     if (error instanceof Error) {
       return { message: error.message };
-    } else {
-      return { message: "An unknown error occurred (Signup)" };
     }
   }
 }

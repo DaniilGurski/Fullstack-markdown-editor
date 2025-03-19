@@ -5,7 +5,7 @@ export const isUser = (object: unknown): object is User => {
   if (
     object !== null &&
     typeof object === "object" &&
-    Object.hasOwn(object, "user")
+    Object.hasOwn(object, "email")
   ) {
     return true;
   }

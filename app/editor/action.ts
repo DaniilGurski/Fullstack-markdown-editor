@@ -1,4 +1,5 @@
 "use server";
+
 import { createClient } from "@/app/utils/supabase/server";
 import { TCurrentUserDocument } from "@/app/lib/definitions/states";
 import { TDocument } from "@/app/lib/definitions/schemas";
@@ -64,4 +65,15 @@ export async function saveDocumentName(documentId: string, newName: string) {
   if (error) {
     throw new Error(error.message);
   }
+}
+
+export async function signOut() {
+  const { auth } = await createClient();
+  const { error } = await auth.signOut();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return { message: "User signed out" };
 }
