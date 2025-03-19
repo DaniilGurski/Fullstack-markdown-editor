@@ -11,6 +11,7 @@ import {
 import { useAtom, useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
 import { isUserDocument } from "@/app/lib/typeguards";
+import { tryCatch } from "@/app/utils/helpers";
 
 export default function DeleteModal() {
   const [currentUserDocument, setCurrentUserDocument] = useAtom(
@@ -33,7 +34,7 @@ export default function DeleteModal() {
       return;
     }
 
-    try {
+    tryCatch(async () => {
       const data = await deleteDocument(currentUserDocument.id);
       if (isUserDocument(data)) {
         setUserDocuments((prev) =>
@@ -41,11 +42,7 @@ export default function DeleteModal() {
         );
         createNewDocument();
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    }
+    });
   };
 
   useEffect(() => {

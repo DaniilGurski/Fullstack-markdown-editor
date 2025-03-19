@@ -1,11 +1,11 @@
 "use client";
 
+import clsx from "clsx";
 import { markdownPreviewOpenedAtom } from "@/app/lib/atoms";
 import { useAtom } from "jotai";
 import IconButton from "@/app/components/buttons/IconButton";
-import Image from "next/image";
-import iconShowPreview from "@/public/assets/icon-show-preview.svg";
-import iconHidePreview from "@/public/assets/icon-hide-preview.svg";
+import IconShowPreviewSvg from "@/app/components/svg-icons/IconShowPreviewSvg";
+import IconHidePreviewSvg from "@/app/components/svg-icons/IconHidePreviewSvg";
 
 export default function TogglePreviewButton({
   className,
@@ -18,7 +18,7 @@ export default function TogglePreviewButton({
 
   return (
     <IconButton
-      className={className}
+      className={clsx("group", className)}
       srOnlyLabel={
         markdownPreviewOpened ? "Hide preview window" : "Show preview window"
       }
@@ -26,10 +26,7 @@ export default function TogglePreviewButton({
         setMarkDownPreviewOpened(!markdownPreviewOpened);
       }}
     >
-      <Image
-        src={markdownPreviewOpened ? iconHidePreview : iconShowPreview}
-        alt=""
-      />
+      {markdownPreviewOpened ? <IconHidePreviewSvg /> : <IconShowPreviewSvg />}
     </IconButton>
   );
 }

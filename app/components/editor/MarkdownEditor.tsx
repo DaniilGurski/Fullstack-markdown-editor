@@ -19,7 +19,7 @@ export default function MarkdownEditor() {
   return (
     <article
       className={clsx(
-        "min-w-[400px] overflow-y-scroll",
+        "overflow-y-scroll",
         !documentPanelOpened && "col-span-2",
       )}
     >

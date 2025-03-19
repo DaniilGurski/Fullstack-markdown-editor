@@ -8,9 +8,8 @@
   --breakpoint-mobile: 36.563em;
   --breakpoint-hide-panel-logo: 81.25rem;
 
-  --container-md: 1000px;
-  --container-sm: 605px;
-  /* --container-editor-sm: 42px; */
+  --container-md: 62.5rem;
+  --container-sm: 37.813rem;
 
   /* --color-*: initial; */
   --color-neutral-1000: hsl(225, 9%, 9%);
@@ -30,21 +29,6 @@
   --width-almost: 90%;
 
   --editor-main-cols: 17.188rem minmax(0rem, 1fr);
-}
-
-@theme inline {
-  --color-editor-header: var(--color-neutral-200);
-  --color-editor-header-text: var(--color-neutral-500);
-  --color-editor-divider: var(--color-neutral-300);
-
-  /* text color inside editor windows */
-  --color-markdown-code: var(--color-neutral-700);
-  --color-markdown-preview: var(--color-neutral-500);
-
-  /* markdown components */
-  --color-markdown-preview-header: var(--color-neutral-700);
-  --color-markdown-preview-block: var(--color-neutral-200);
-  --color-modal-backdrop: var(--color-neutral-1000);
 }
 
 @layer components {

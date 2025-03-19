@@ -4,22 +4,25 @@ import { useAtomValue, useSetAtom } from "jotai";
 import {
   currentUserDocumentAtom,
   deleteModalOpenedAtom,
+  documentPanelOpenedAtom,
 } from "@/app/lib/atoms";
 import logo from "@/public/assets/logo.svg";
-import iconDelete from "@/public/assets/icon-delete.svg";
 import Image from "next/image";
 import PanelButton from "@/app/components/PanelButton";
 import { MemoizedDocumentRenamer } from "@/app/components/DocumentRenamer";
 import IconButton from "@/app/components/buttons/IconButton";
 import SaveChangesButton from "@/app/components/editor/SaveChangesButton";
 import React from "react";
+import clsx from "clsx";
+import IconDeleteSvg from "../svg-icons/IconDeleteSvg";
 
 export default function PrimaryHeader() {
   const currentDocument = useAtomValue(currentUserDocumentAtom);
   const setDeleteModalOpened = useSetAtom(deleteModalOpenedAtom);
+  const documentPanelOpened = useAtomValue(documentPanelOpenedAtom);
 
   return (
-    <header className="@container flex items-center justify-between bg-neutral-800">
+    <header className="@container flex items-center justify-between overflow-x-auto bg-neutral-800">
       <div className="flex gap-6">
         <PanelButton />
 
@@ -37,17 +40,22 @@ export default function PrimaryHeader() {
 
         <MemoizedDocumentRenamer
           topText="Document Name"
-          renamedDocumentId={currentDocument.id}
           currentDocumentName={currentDocument?.documentName}
         />
       </div>
 
-      <div className="hidden gap-6 pr-2 @sm:flex @md:pr-4">
+      <div
+        className={clsx(
+          "gap-6 pr-2 @md:pr-4",
+          documentPanelOpened ? "tablet:flex hidden" : "flex",
+        )}
+      >
         <IconButton
+          className="group"
           srOnlyLabel="Delete document"
           onClick={() => setDeleteModalOpened(true)}
         >
-          <Image src={iconDelete} alt="" />
+          <IconDeleteSvg />
         </IconButton>
 
         <SaveChangesButton />

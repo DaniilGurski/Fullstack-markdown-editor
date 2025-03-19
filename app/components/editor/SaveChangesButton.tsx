@@ -9,6 +9,7 @@ import { saveDocument } from "@/app/editor/action";
 import iconSave from "@/public/assets/icon-save.svg";
 import Image from "next/image";
 import Button from "@/app/components/buttons/Button";
+import { tryCatch } from "@/app/utils/helpers";
 
 export default function SaveChangesButton() {
   const [currentDocument, setCurrentDocument] = useAtom(
@@ -39,7 +40,7 @@ export default function SaveChangesButton() {
   const handleOnClick = async () => {
     const supabase = await createClient();
 
-    try {
+    tryCatch(async () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -53,11 +54,7 @@ export default function SaveChangesButton() {
       if (savedDocument) {
         updateDocuments(savedDocument);
       }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    }
+    });
   };
 
   return (

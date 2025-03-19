@@ -29,17 +29,19 @@ function ConfirmModal(
 
   return (
     <dialog
-      className="backdrop:bg-modal-backdrop/40 fixed top-[50%] mx-auto w-full max-w-96 translate-y-[-50%] rounded-sm bg-neutral-100 p-6"
+      className="backdrop:bg-neutral-1000/50 theme-dark:backdrop:bg-neutral-100/20 theme-dark:bg-neutral-900 fixed top-[50%] mx-auto w-full max-w-96 translate-y-[-50%] rounded-sm bg-neutral-100 p-6"
       onClick={onDialogClick}
       ref={ref}
     >
       <div className="grid gap-y-4">
         <h2
-          className={`${robotoSlab.className} text-xl font-bold text-neutral-700`}
+          className={`${robotoSlab.className} theme-dark:text-neutral-100 text-xl font-bold text-neutral-700`}
         >
           {title}
         </h2>
-        <p className={`${robotoSlab.className} text-sm text-neutral-500`}>
+        <p
+          className={`${robotoSlab.className} theme-dark:text-neutral-400 text-sm text-neutral-500`}
+        >
           {body}
         </p>
 
