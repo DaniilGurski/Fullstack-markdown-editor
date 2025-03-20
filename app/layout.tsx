@@ -10,6 +10,18 @@ export const metadata: Metadata = {
     default: "Markdown Editor",
   },
   description: "Fullstack markdown editor application made with Next.js",
+  icons: [
+    {
+      media: "(prefers-color-scheme: light)",
+      url: "/assets/favicon-dark.png",
+      href: "/assets/favicon-dark.png",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      url: "/assets/favicon-light.png",
+      href: "/assets/favicon-light.png",
+    },
+  ],
 };
 
 export default function RootLayout({
