@@ -44,7 +44,7 @@ export default function DocumentItem({
         <span className="text-sm font-light text-neutral-300">
           {lastUpdated}
         </span>
-        <button className="cursor-pointer text-start text-neutral-100 group-hover:text-orange-200 group-focus:text-orange-200">
+        <button className="cursor-pointer text-start text-neutral-100 group-hover:text-orange-200 focus:text-orange-200">
           {name}
         </button>
       </div>
