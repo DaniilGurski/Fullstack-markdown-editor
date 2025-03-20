@@ -64,7 +64,6 @@ export default function LoginForm() {
           <div className="grid gap-6">
             <FormInput
               fieldLabel="Email Adress"
-              defaultValue="daniilgurski6@gmail.com"
               error={errors.email}
               placeholder="e.g 5opka@gmail.com"
               {...register("email")}
@@ -72,7 +71,6 @@ export default function LoginForm() {
 
             <FormInput
               fieldLabel="Password"
-              defaultValue="markdown123"
               error={errors.password}
               type="password"
               placeholder="Enter your password"

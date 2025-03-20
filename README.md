@@ -1,10 +1,6 @@
 # Fullstack markdown editor app
 
 Fullstack markdown editor application made with Next.js.
-Use these login details to test the app without having to register:
-
-- Email: daniilgurski6@gmail.com
-- Password: markdown123
 
 ## Features
 
